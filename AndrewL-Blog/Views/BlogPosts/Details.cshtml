@@ -1,0 +1,72 @@
+﻿@model AndrewL_Blog.Models.BlogPost
+
+
+
+    <h1 class="viewstitle text-center" style="color: white"><u>@Model.Title</u></h1>
+<h4 class="mb-4 viewstitle text-center" style="color: white" >@Model.Abstract</h4>
+<hr style="border: 2px solid white" />
+<div class="row-md-12 ftco-animate">
+    <img src="@Model.MediaURL" class="img-fluid" alt="" style="width:100%" />
+</div>
+<div class="row about-section">
+    <div class="col-md-11">
+
+        
+      @Html.Raw(Model.BlogPostBody)  
+
+
+     
+    </div>
+</div>
+<br />
+
+<div class="row about-section" style="height:300px;">
+
+    @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+    {
+        <div class="container mt-3">
+            <h4>Author @comment.Author.Email</h4>
+            <div class="media">
+                <img src="~/Images/bg_2.jpg" class="align-baseline-self-start mr-3" style="width:60px" />
+                <div class="media-body">
+                    <h4>Written: @comment.Created.ToString("MMM dd,yyyy")</h4>
+                    <h7>@Html.Raw(comment.CommentBody)</h7>  
+                </div>
+            </div>
+            <p class="nav-link">
+                @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+
+                    @*<a href=@Url.Action("Edit", "Edit", new { id = comment.Id })>Edit. </a>
+                        <a href=@Url.Action("Delete", "Delete", new { id = comment.Id })>Delete. </a>*@
+                    <a href=@Url.Action("Index", "Comments")>Back to list. </a>
+                }
+            </p>
+        </div>
+    }
+    @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() // it is a security feature....pairs up with [ValidateAntiForgeryToken] to prevent cross site forgery  applies to front and back
+        @Html.Hidden("PostBlogId", Model.Id)
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.TextArea("CommentBody", new { rows = 5, cols = 50, placeholder = "Add Comment" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-3 col-md-6">
+                <button type="submit" class="btn btn-danger">Submit. </button>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+
+@*Html.actionlink has an overloaded method that takes text name and action name and inherits the controller of the view
+    so we dont want dont want this comment to go to blogpost/delete we want it to go to coments/delete so we use Url.Action*@
+
+@*Url.Action requires us to make actual link*@

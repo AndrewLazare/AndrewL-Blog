@@ -1,0 +1,77 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<AndrewL_Blog.Models.BlogPost>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<h1 class="text-center" style="color: white"><u>Manage Posts</u></h1>
+
+<hr style="border: 2px solid white" />
+
+<br />
+@using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+{
+    <div class="input-group-prepend">
+        <input id="searchStr" name="searchStr" class="form-control my-0 py-1" type="text" placeholder="Search Posts" aria-label="search">
+        <button id="searchStr" name="searchStr" class="btn btn-secondary" type="submit">
+            <span class="input-group-text cyan lighten-2" id="basic-text1">
+                <i class="fas fa-search text-white"
+                   aria-hidden="true"></i>
+            </span>
+        </button>
+    </div>
+}
+@*only show this if im an Admin*@
+<table class="table-responsive-lg">
+    @*this is a table/spreadsheet colomns take their names from the property of the object...in this case the object is BlogPost*@
+    <tr style="color: white; font-weight: bold">
+        <th class="col">
+            MediaUrl
+        </th>
+        <th class="col">
+            Created
+        <th class="col">
+            Updated
+        </th>
+        <th class="col">
+            Title
+        </th>
+        <th class="col">
+            Abstract
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="color: white; font-weight: bold">
+            <td class="col border-bottom">
+                @if (item.MediaURL != null)
+                {
+                    <img class="img-fluid" src="@item.MediaURL" alt="">
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })<br />
+                    @Html.ActionLink("Details", "Details", new { slug = item.Slug })<br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })<br />
+                }
+            </td>
+            <td class="col border-bottom">
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td class="col border-bottom">
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td class="col border-bottom">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="col border-bottom">
+                @Html.DisplayFor(modelItem => item.Abstract)
+            </td>
+
+        </tr>
+    }
+</table>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+

@@ -1,0 +1,81 @@
+﻿@model AndrewL_Blog.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostBlogId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostBlogId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentBody)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Updated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateReason)
+        </dd>
+
+    </dl>
+</div>
+@using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("BlogPostId", Model.Id)
+
+    @Html.TextArea("CommentBody", new { rows = 5, cols = 50, placeholder = "Add Comment" })
+}
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

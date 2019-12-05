@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+<nav id="colorlib-main-nav" role="navigation">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+    <div class="js-fullheight colorlib-table">
+        <div class="colorlib-table-cell js-fullheight">
+            <div class="row d-flex justify-content-end">
+                <div class="col-md-12 px-5">
+                    <ul class="mb-5">
+                        <li><a href="@Url.Action("Index", "Home")"><span>Home</span></a></li>
+                        <li><a href="@Url.Action("Create", "BlogPosts")"><span>Create</span></a></li>
+                        <li><a href="@Url.Action("About", "Home")"><span>About</span></a></li>
+                        <li><a href="@Url.Action("Contact", "Home")"><span>Travel</span></a></li>
+                        @*<li><a href="about.html"><span>About us</span></a></li>
+                        <li><a href="contact.html"><span>Contact</span></a></li>*@
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="colorlib-page">
+    <header>
+        <div class="container-fluid">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <div class="colorlib-navbar-brand">
+                        <a class="colorlib-logo" href="index.html">My Blog</a>
+                    </div>
+                    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="ftco-fixed clearfix">
+        <div class="image js-fullheight float-left">
+            <div class="home-slider owl-carousel js-fullheight">
+                <div class="slider-item js-fullheight" style="background-image: url('images/bg_1.jpg');">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text align-items-end" data-scrollax-parent="true">
+                            <div class="col-md-10 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                                <p class="breadcrumbs"><span><a href="index.html">Home</a></span> <span>Blog</span></p>
+                                <h1 class="mb-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Blog Single</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end:image -->
+     </section>
+  </div>

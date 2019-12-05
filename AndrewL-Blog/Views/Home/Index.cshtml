@@ -1,0 +1,79 @@
+﻿@using AndrewL_Blog.Models;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BlogPost>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@*// IEnumerable is an interface by Entity Frameworks.  Has methods within it that are used*@
+
+@*cycles through blogposts and displaying certain parts of information   and ill selecing info within in foreach brackets*@
+@*had to add this so i could use my models*@
+
+
+
+<h1 class="text-center" style="color: white"><u>Home Page</u></h1>
+
+<hr style="border: 2px solid white" />
+
+<br />
+@using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+{<div class="input-group-prepend">
+        <input id="searchStr" name="searchStr" class="form-control my-0 py-1" type="text" placeholder="Search Posts">
+        <button id="searchStr" name="searchStr" class="btn btn-secondary" type="submit">
+            <span class="input-group-text cyan lighten-2" id="basic-text1">
+                <i class="fas fa-search text-white"
+                   aria-hidden="true"></i>
+            </span>
+        </button>
+    </div>}
+
+
+
+<div class="row">
+    @foreach (var blogPost in Model)
+
+
+    {
+        if (blogPost.Published)
+        {
+            <div class="col-md-6">
+                <div class="blog-entry ftco-animate">
+                    <a href="blog-single.html" class="blog-image"></a>
+                    <a class="nav-link" href="@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug })">
+                        <img src="@blogPost.MediaURL" class="img-fluid" alt="">
+                    </a>
+                    <div class="text py-4">
+                        <div class="meta">
+                            <div><a>@blogPost.Created</a></div>
+                            <div><a>Andrew Lazare</a></div>
+                        </div>
+                        <h3 class="heading"><a href="@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug })">@blogPost.Title</a></h3>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    }
+
+
+</div>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

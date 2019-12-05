@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AndrewL_Blog.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h8 class="viewstitle">Manage Comments</h8>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Author.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostBlogId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateReason)
+        </th>
+        <th></th>
+    </tr>
+    //cycle through  every BlogPost record in the set of BlogPost records displaying the property values for each, one a a time
+    @foreach (var blogPost in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => blogPost.Author.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => blogPost.PostBlogId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => blogPost.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => blogPost.Updated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => blogPost.UpdateReason)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = blogPost.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = blogPost.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = blogPost.Id })
+            </td>
+        </tr>
+    }
+
+</table>
